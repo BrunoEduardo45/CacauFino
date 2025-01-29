@@ -41,23 +41,22 @@ class UsuarioController extends Actions {
         session_start();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
-            // Processa o formulário normalmente...
             $baseDir = dirname(__FILE__);
             include $baseDir . "/../utils/Database.php";
         
             date_default_timezone_set('America/Sao_Paulo');
         
-            $usuarioemail = $_POST['email'];
+            $usuariocpf = $_POST['cpf'];
             $senhausuario = $_POST['senha'];
         
-            $sql = selecionarDoBanco('usuarios', '*', 'usu_email = :email', [':email' => $usuarioemail]);
+            $sql = selecionarDoBanco('usuarios', '*', 'usu_cpf = :cpf', [':cpf' => $usuariocpf]);
             $total = count($sql);
         
             if ($total > 0) {
         
                 foreach ($sql as $value) {
                     $usuID = $value['usu_id'];
-                    $usuEmail = $value['usu_email'];
+                    $usuCPF = $value['usu_cpf'];
                     $usuSenha = $value['usu_senha'];
                     $usuNome = $value['usu_nome'];
                     $usuTipo = $value['usu_tipo'];
@@ -90,7 +89,7 @@ class UsuarioController extends Actions {
                             "id" => $usuID,
                             "usuario" => $usuNome,
                             "tipo" => $usuTipo,
-                            "email" => $usuEmail
+                            "cpf" => $usuCPF
                         ];
                         
                         $expirationTime = time() + (86400 * 30);
@@ -127,7 +126,7 @@ class UsuarioController extends Actions {
         setcookie("id", "null", 0, "/");
         setcookie("usuario", "null", 0, "/");
         setcookie("nivel", "null",  0, "/");
-        setcookie("email", "null",  0, "/");
+        setcookie("cpf", "null",  0, "/");
 
         if(!isset($_SESSION)){
             session_start();
@@ -139,8 +138,8 @@ class UsuarioController extends Actions {
     } //ok
 
     function Verificar(){
-        $email = (isset($_POST['email']) ? $_POST['email'] : "");
-        $dados = selecionarDoBanco('usuarios','*','usu_email = '.$email.' LIMIT 1');
+        $cpf = (isset($_POST['cpf']) ? $_POST['cpf'] : "");
+        $dados = selecionarDoBanco('usuarios','*','usu_cpf = '.$cpf.' LIMIT 1');
         $count = $dados != null ? count($dados) : 0;
 
         if ($count == 0) {
@@ -169,9 +168,7 @@ class UsuarioController extends Actions {
     public function DeletarUsuario(){
         $baseDir = dirname(__FILE__);
         include $baseDir . "/../utils/Database.php";
-
         $Id = $_POST['Id'];
-
         try {
             $pdo->beginTransaction();
             //deleta o usuario
@@ -199,7 +196,6 @@ class UsuarioController extends Actions {
     public function Visualizar(){
         $Id = $_POST['Id'];
         $dados = selecionarDoBanco('usuarios','*','usu_id = '.$Id.' LIMIT 1');
-
         header('Content-type: application/json');
         echo json_encode($dados);
     } //ok
@@ -212,15 +208,12 @@ class UsuarioController extends Actions {
     } //ok
 
     public function ResetarSenha(){
-
         $baseDir = dirname(__FILE__);
         include $baseDir . "/../utils/Database.php";
-
-        $email = $_POST['email'];
-
+        $cpf = $_POST['cpf'];
         try {
 
-            $dados = selecionarDoBanco('usuarios','usu_email','usu_email = '.$email.' LIMIT 1');
+            $dados = selecionarDoBanco('usuarios','usu_cpf','usu_cpf = '.$cpf.' LIMIT 1');
             $count = count($dados);
 
             if ($count != 0) {
@@ -228,11 +221,11 @@ class UsuarioController extends Actions {
                 $senhaHash = password_hash($senha, PASSWORD_DEFAULT, $options = ['cost' => 12]);
 
                 $pdo->beginTransaction();
-                $sql = $pdo->prepare("UPDATE usuarios SET usu_senha = ?, usu_update = now(), usu_erro = 0 WHERE usu_email = ?");
-                $sql->execute([$senhaHash, $email]);
+                $sql = $pdo->prepare("UPDATE usuarios SET usu_senha = ?, usu_update = now(), usu_erro = 0 WHERE usu_cpf = ?");
+                $sql->execute([$senhaHash, $cpf]);
                 $pdo->commit();
 
-                ResetarSenhaEmail($email, $senha);
+                ResetarSenhaEmail($cpf, $senha);
 
                 $data = ['acao' => 'ok'];
                 header('Content-type: application/json');
@@ -247,56 +240,16 @@ class UsuarioController extends Actions {
         }
     }
 
-    // function AdicionarToken(){
-
-    //     $baseDir = dirname(__FILE__);
-    //     include $baseDir . "/../utils/Database.php";
-
-    //     $Id     = (isset($_POST['id']) ? $_POST['id'] : "");
-    //     $token       = (isset($_POST['token']) ? $_POST['token'] : "");
-
-    //     try {
-
-    //         $pdo->beginTransaction();
-    //         $stmt = $pdo->prepare("SELECT usu_id FROM usuarios WHERE usu_token = ?");
-    //         $stmt->execute([$token]);
-    //         $count = $stmt->rowCount();
-
-    //         if ($count > 0) {
-    //             $sql = $pdo->prepare("UPDATE usuarios SET usu_token = ? WHERE usu_token = ?");
-    //             $sql->execute([NULL, $token]);
-
-    //             $sql = $pdo->prepare("UPDATE usuarios SET usu_token = ? WHERE usu_id = ?");
-    //             $sql->execute([$token, $Id]);
-    //         } else {
-    //             $sql = $pdo->prepare("UPDATE usuarios SET usu_token = ? WHERE usu_id = ?");
-    //             $sql->execute([$token, $Id]);
-    //         }
-    //         $pdo->commit();
-
-    //         $data = ['acao' => 'ok'];
-    //         header('Content-type: application/json');
-    //         echo json_encode($data);
-    //     } catch (Exception $e) {
-    //         $pdo->rollBack();
-
-    //         // Enviar mensagem de erro para o Telegram
-
-    //     }
-    // }
-
     function imagemPerfil(){
         $baseDir = dirname(__FILE__);
         include $baseDir . "/../utils/Database.php";
-
         $Id         = (isset($_POST['id']) ? $_POST['id'] : "");
         $imagem64    = (isset($_POST['dadosImagem']) ? $_POST['dadosImagem'] : "");
-
         try {
             if ($imagem64 != ""){
                 $where = "usu_id = " . $Id;
-                $bdNomeImagem = 'usu_imagem_nome';  //coluna do banco com nome da imagem
-                $bdlUrlImagem = 'usu_imagem_url';   //coluna do banco com url da imagem
+                $bdNomeImagem = 'usu_imagem_nome';  
+                $bdlUrlImagem = 'usu_imagem_url'; 
                 uploadImagem('usuarios', $imagem64, $where, $bdNomeImagem, $bdlUrlImagem, false);
 
                 $data = ['acao' => 'ok'];
@@ -305,8 +258,6 @@ class UsuarioController extends Actions {
             }
         } catch (Exception $e) {
             $pdo->rollBack();
-            // Enviar mensagem de erro para o Telegram
-
         }
     } //ok
 }

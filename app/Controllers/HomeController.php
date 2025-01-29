@@ -45,6 +45,14 @@ class HomeController extends Actions {
         ]);
     } 
 
+    public function CacauFino(){
+        global $tabela;
+        $pagina = $_GET['pagina'] ?? 1;
+        loadView('CacauFino', $tabela,[
+            'pagina' => $pagina,
+        ]);
+    } 
+
     public function Noticias()
     {
         global $tabela;

@@ -35,7 +35,7 @@ include $baseDir . "/../../utils/Database.php";
 
         <form id="resetarSenha" action="" method="post">
           <div class="input-group mb-2">
-            <input type="email" class="form-control" name="email" placeholder="Email" required>
+            <input type="cpf" class="form-control" name="cpf" placeholder="cpf" required>
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-envelope"></span>

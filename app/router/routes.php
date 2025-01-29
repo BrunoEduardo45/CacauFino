@@ -11,6 +11,7 @@ $routes = [
         '/noticia/{id}' =>   'HomeController@Noticia', //ok
         '/produtos' =>       'HomeController@Produtos', //ok
         '/cacaus' =>         'HomeController@Cacaus', //ok
+        '/cacaufino' =>      'HomeController@CacauFino', //ok
 
     // ADMINISTRATIVO //
 
@@ -66,4 +67,5 @@ $routes = [
         '/deletar-usuario' =>           'UsuarioController@DeletarUsuario',
         '/update-adm' =>                'UsuarioController@UpdateAdm', //ok
         '/visualizar' =>                'UsuarioController@Visualizar',//ok
+        '/verificar' =>                 'UsuarioController@Verificar',//ok
 ];

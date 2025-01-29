@@ -29,7 +29,7 @@
                                             <tr>
                                                 <th style="width: 5%">Id</th>
                                                 <th style="width: 25%">Nome</th>
-                                                <th style="width: 25%">Email</th>
+                                                <th style="width: 25%">CPF</th>
                                                 <th style="width: 20%">Celular</th>
                                                 <th style="width: 10%">Tipo</th>
                                                 <th style="width: 10%">Status</th>
@@ -42,7 +42,7 @@
                                                 <tr>
                                                     <td><?php echo $values['usu_id'] ?></td>
                                                     <td><?php echo $values['usu_nome'] ?></td>
-                                                    <td><?php echo $values['usu_email'] ?></td>
+                                                    <td><?php echo $values['usu_cpf'] ?></td>
                                                     <td><?php echo $values['usu_celular'] ?></td>
                                                     <td><?php echo $values['tp_nome'] ?></td>
                                                     <td>
@@ -112,8 +112,8 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label class="form-label" for="email">Email</label>
-                                            <input type="text" id="email" name="email" class="form-control" value="" required>
+                                            <label class="form-label" for="cpf">CPF</label>
+                                            <input type="text" id="cpf" name="cpf" class="form-control" value="" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -187,7 +187,7 @@
 
         var linha = $(e).closest("tr");
         var id = linha.find("td:eq(0)").text().trim();
-        var email = linha.find("td:eq(2)").text().trim();
+        var cpf = linha.find("td:eq(2)").text().trim();
         var acao = $(e).data("acao");
 
         Notiflix.Loading.Pulse('Carregando...');
@@ -203,7 +203,7 @@
                     Notiflix.Loading.Remove();
                     $("#id").val(id);
                     $("#nome").val(data[0].usu_nome);
-                    $("#email").val(data[0].usu_email);
+                    $("#cpf").val(data[0].usu_cpf);
                     $("#sexo").val(data[0].usu_sexo);
                     $("#telefone").val(data[0].usu_telefone);
                     $("#celular").val(data[0].usu_celular);
@@ -262,7 +262,7 @@
                     $.ajax({
                         url: '/resetar-senha',
                         data: {
-                            'email': email
+                            'cpf': cpf
                         },
                         type: "POST",
                         success: function(data) {
@@ -286,7 +286,7 @@
     {
         return {
             'usu_nome': $('#nome').val() ?? null, 
-            'usu_email': $('#email').val() ?? null, 
+            'usu_cpf': $('#cpf').val() ?? null, 
             'usu_telefone': $('#telefone').val() ?? null, 
             'usu_celular': $('#celular').val() ?? null, 
             'usu_sexo': $('#sexo').val() ?? null, 

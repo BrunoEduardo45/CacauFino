@@ -1,26 +1,21 @@
 <?php
 
-$id = $id[0] ?? 0;
-$result = selecionarDoBanco('noticias', '*', 'not_id = :id LIMIT 1', ['id' => $id]);
-$defaultValues = [
-    'not_id', 'not_titulo', 'not_descricao', 'not_data_publicacao', 'not_categoria', 'not_url_imagem', 'not_nome_imagem', 'not_status', 'not_usuario_id'
-];
+    $id = $id[0] ?? 0;
+    $result = selecionarDoBanco('noticias', '*', 'not_id = :id LIMIT 1', ['id' => $id]);
+    $defaultValues = ['not_id', 'not_titulo', 'not_descricao', 'not_data_publicacao', 'not_categoria', 'not_url_imagem', 'not_nome_imagem', 'not_status', 'not_usuario_id'];
 
-foreach ($defaultValues as $value) {
-    ${$value} = ($result !== false && isset($result[0][$value])) ? $result[0][$value] : "";
-}
+    foreach ($defaultValues as $value) {
+        ${$value} = ($result !== false && isset($result[0][$value])) ? $result[0][$value] : "";
+    }
 
 ?>
 
-<!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <!-- Main content -->
     <section class="content pt-4">
         <form id="form" method="post">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-8">
-                        <!-- Default box -->
 
                         <div class="card card-outline card-primary">
                             <div class="card-body">

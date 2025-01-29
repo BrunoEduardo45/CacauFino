@@ -14,9 +14,9 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     $IdUser    = decryptData($_COOKIE['id'], $encryptionKey);
     $tipo      = decryptData($_COOKIE['tipo'], $encryptionKey);
     $nomeUser  = decryptData($_COOKIE['usuario'], $encryptionKey);
-    $emailUser = decryptData($_COOKIE['email'], $encryptionKey);
+    $cpf       = decryptData($_COOKIE['cpf'], $encryptionKey);
 } else {
-    $IdUser = $tipo = $nomeUser = $emailUser = null;
+    $IdUser = $tipo = $nomeUser = $cpf = null;
 }
 
 ?>

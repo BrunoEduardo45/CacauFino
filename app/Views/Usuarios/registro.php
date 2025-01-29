@@ -40,8 +40,8 @@ include $baseDir . "/../../utils/Database.php";
                     <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome" required>
                 </div>
                 <div class="form-group">
-                    <label class="form-label" for="email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                    <label class="form-label" for="cpf">CPF</label>
+                    <input type="cpf" class="form-control" id="cpf" name="cpf" placeholder="CPF" required>
                 </div>
                 <label class="form-label" for="senha">Senha</label>
                 <div class="input-group mb-3">
@@ -93,7 +93,7 @@ include $baseDir . "/../../utils/Database.php";
     {
         return {
             'usu_nome': $('#nome').val() ?? null,
-            'usu_email': $('#email').val() ?? null,
+            'usu_cpf': $('#cpf').val() ?? null,
             'usu_senha': $('#senha').val() ?? null,
             'usu_status': 2,
             'usu_tipo': 2,
@@ -104,18 +104,18 @@ include $baseDir . "/../../utils/Database.php";
         e.preventDefault();
         Notiflix.Loading.Pulse('Carregando...');
 
-        var email = $("#email").val();
-        
+        var cpf = $("#cpf").val();
+        debugger;
         $.ajax({
             type: "POST",
             dataType: "json",
             url: "<?php echo $baseUrl ?>verificar",
-            data: {email: email},
+            data: {cpf: cpf},
             success: function(data) {
                 
                 if (data.acao == 'ok') {
-                    $("#email").addClass('is-valid');
-                    $("#email").removeClass('is-invalid');
+                    $("#cpf").addClass('is-valid');
+                    $("#cpf").removeClass('is-invalid');
                     $.ajax({
                         type: "POST",
                         url: "<?php echo $baseUrl ?>inserir-usuario",
@@ -141,10 +141,10 @@ include $baseDir . "/../../utils/Database.php";
                     });
                 } else {
                     Notiflix.Loading.Remove();
-                    $("#email").addClass('is-invalid');
-                    $("#email").removeClass('is-valid');
-                    Notiflix.Notify.Failure('Este e-mail já existe em nossa base!');
-                    $("#email").focus();
+                    $("#cpf").addClass('is-invalid');
+                    $("#cpf").removeClass('is-valid');
+                    Notiflix.Notify.Failure('Este CPF já existe em nossa base!');
+                    $("#cpf").focus();
                     return false;
                 }
             },

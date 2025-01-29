@@ -8,7 +8,7 @@ $list = selecionarDoBanco('usuarios', '*', 'usu_id = :id', [':id' => $IdUser], $
 
 foreach ($list as $values) {
     $nome = $values['usu_nome'];
-    $email = $values['usu_email'];
+    $cpf = $values['usu_cpf'];
     $telefone = $values['usu_telefone'];
     $celular = $values['usu_celular'];
     $sexo = $values['usu_sexo'];
@@ -43,8 +43,8 @@ foreach ($list as $values) {
                                     </div>
                                     <div class="col-lg-3">
                                         <div class="form-group">
-                                            <label class="form-label" for="email">E-mail</label>
-                                            <input type="email" class="form-control" id="email" name="email" value="<?php echo $email ?>" disabled>
+                                            <label class="form-label" for="cpf">CPF</label>
+                                            <input type="cpf" class="form-control" id="cpf" name="cpf" value="<?php echo $cpf ?>" disabled>
                                         </div>
                                     </div>
                                     <div class="col-lg-3">

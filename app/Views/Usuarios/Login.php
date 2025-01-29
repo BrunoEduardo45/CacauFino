@@ -45,10 +45,10 @@ include $baseDir . "/../../utils/Database.php";
 
         <form id="login" action="" method="post">
           <div class="input-group mb-3">
-            <input type="email" class="form-control" name="email" placeholder="Email" value="" required>
+            <input type="cpf" class="form-control" name="cpf" placeholder="CPF" value="" required>
             <div class="input-group-append">
               <div class="input-group-text">
-                <span class="fas fa-envelope"></span>
+                <span class="fas fa-hashtag"></span>
               </div>
             </div>
           </div>

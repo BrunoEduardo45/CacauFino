@@ -18,8 +18,8 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label class="form-label" for="email">E-mail</label>
-                                            <input type="email" class="form-control" id="email" name="email" required>
+                                            <label class="form-label" for="cpf">CPF</label>
+                                            <input type="cpf" class="form-control" id="cpf" name="cpf" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
@@ -130,7 +130,7 @@
     {
         return {
             'usu_nome': $('#nome').val() ?? null,
-            'usu_email': $('#email').val() ?? null,
+            'usu_cpf': $('#cpf').val() ?? null,
             'usu_tipo': $('#tipo').val() ?? null,
             'usu_telefone': $('#telefone').val() ?? null,
             'usu_celular': $('#celular').val() ?? null,
