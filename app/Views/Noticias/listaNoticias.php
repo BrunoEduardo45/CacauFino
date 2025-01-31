@@ -1,10 +1,11 @@
 <div class="content-wrapper">
+
     <section class="content pt-4">
         <div class="container-fluid">
             <div class="col-md-12">
                 <div class="card card-outline card-primary">
                     <div class="card-body">
-                        <h3 class="col-12">Notícias</h3>
+                        <h3 class="col-12">Minhas Postagens</h3>
                         <hr>
                         <div class="col-md-12">
                             <?php
@@ -13,12 +14,12 @@
                                 'INNER JOIN usuarios ON (usu_id = not_usuario_id)'
                             ];
 
-                            $list = selecionarDoBanco('noticias', '*', '', [], $joins);
+                            $list = selecionarDoBanco('noticias', '*', 'not_situacao = 1', [], $joins);
                             $count = count($list);
 
                             if ($count > 0) { ?>
                                 <div class="table-responsive">
-                                    <table id="table" class="table table-striped table-hover w-100">
+                                    <table id="datatable" class="table table-striped table-hover w-100">
                                         <thead>
                                             <tr>
                                                 <th>Data</th>
@@ -52,15 +53,18 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            <?php } else { echo 'Nenhuma notícia cadastrada'; } ?>
+                            <?php } else { 
+                                echo 'Nenhuma notícia cadastrada'; 
+                                } 
+                            ?>
                         </div>
                     </div>
                     <div class="card-footer">
-                        <a class='btn btn-primary btn-block' href="<?php echo $baseUrl ?>cadastrar-noticia">Cadastrar notícia</a>
+                        <a class='btn btn-primary btn-block' href="<?php echo $baseUrl ?>cadastrar-noticia"><i class="fas fa-plus mr-2"></i> Cadastrar notícia</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-</div>
 
+</div>

@@ -22,6 +22,16 @@ $routes = [
         '/atualizar-configuracao' =>    'ConfiguracaoController@Atualizar', //ok
         '/atualizarimg-configuracao' => 'ConfiguracaoController@AtualizarImagem', //ok
 
+        // Aprovação 
+        '/tela-postagens' =>        'AprovacaoController@Postagens', //ok
+        '/tela-comentarios' =>      'AprovacaoController@Comentarios', //ok
+        '/tela-cacau' =>            'AprovacaoController@Cacau', //ok
+        '/tela-produtos' =>         'AprovacaoController@Produtos', //ok
+        '/aprovacao-postagens' =>   'AprovacaoController@AprovacaoPostagens', //ok
+        '/aprovacao-comentario' => 'AprovacaoController@AprovacaoComentarios', //ok
+        '/aprovacao-cacau' =>       'AprovacaoController@AprovacaoCacau', //ok
+        '/aprovacao-produto' =>    'AprovacaoController@AprovacaoProdutos', //ok
+
         // Cacau
         '/lista-cacau' =>          'CacauController@Listar', //ok
         '/cadastrar-cacau' =>      'CacauController@Cadastrar', //ok
@@ -50,6 +60,10 @@ $routes = [
         '/inserir-noticia' =>           'NoticiasController@Cadastrar', //ok
         '/atualizacao-noticia' =>       'NoticiasController@Atualizar', //ok
         '/deletar-noticia' =>           'NoticiasController@Deletar', //ok
+
+        // Comentários 
+        '/inserir-comentario' =>           'ComentariosController@Inserir', //ok
+        '/deletar-comentario' =>           'ComentariosController@Deletar', //ok
 
         // Usuario
         '/login-page' =>                'UsuarioController@LoginPage', //ok

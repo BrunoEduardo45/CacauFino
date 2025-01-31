@@ -13,7 +13,7 @@
     $produtosPG = $pdo->prepare("
         SELECT * 
         FROM produto 
-        WHERE prod_status = 1 
+        WHERE prod_status = 1 and prod_situacao = 1
         ORDER BY prod_id DESC 
         LIMIT :inicio, :registros
     ");

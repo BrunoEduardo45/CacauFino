@@ -28,12 +28,7 @@
                                             <input type="text" class="form-control" id="qtd" name="qtd" value="" required>
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
-                                        <div id="step01" class="form-group">
-                                            <label class="form-label" for="descricao">Descricao</label>
-                                            <input type="text" class="form-control" id="descricao" name="descricao" value="" required>
-                                        </div>
-                                    </div>
+                                    
                                     <div id="step04" class="col-lg-6">
                                         <div class="form-group">
                                             <label>Unidade</label>
@@ -54,6 +49,14 @@
                                             </select>
                                         </div>
                                     </div>
+
+                                    <div class="col-lg-12">
+                                        <div id="step01" class="form-group">
+                                            <label class="form-label" for="descricao">Descricao</label>
+                                            <input type="text" class="form-control" id="descricao" name="descricao" value="" required>
+                                        </div>
+                                    </div>
+
                                     <div class="col-lg-6">
                                         <div class="form-group mt-6">
                                             <label class="form-label" for="cadastro"></label>
@@ -68,50 +71,60 @@
                                     </div>
                                 </div>
                             </form>
-                            <br>
-                            <h3>Produtos cadastrados</h3>
-                            <hr>
-                            <?php
-                            $list = selecionarDoBanco('produto');
-                            $count = count($list);
-                            if ($count > 0) { ?>
-                                <div class="table-responsive">
-                                    <table id="table" class="table table-hover table-sm w-100">
-                                        <thead>
-                                            <tr>
-                                                <th style="width: 10%">ID</th>
-                                                <th style="width: 40%">Titulo</th>
-                                                <th style="width: 15%">Valor</th>
-                                                <th style="width: 15%">Qtd</th>
-                                                <th style="width: 10%">Status</th>
-                                                <th style="width: 10%">Ação</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="row_position">
-                                            <?php foreach ($list as $values) { ?>
-                                                <tr>
-                                                    <td><?php echo $values['prod_id'] ?></td>
-                                                    <td><?php echo $values['prod_titulo'] ?></td>
-                                                    <td><?php echo 'R$' . $values['prod_preco'] ?></td>
-                                                    <td><?php echo $values['prod_quantidade'] . ' ' . $values['prod_unidade'] ?></td>
-                                                    <td><?= ($values['prod_status'] == 1) ? '<span class="badge badge-pill badge-success">Ativo</span>' : '<span class="badge badge-pill badge-danger">Inativo</span>'; ?></td>
-                                                    <td>
-                                                        <div class="btn-group w-100" role="group" aria-label="Basic example">
-                                                            <a href="#" class="btn btn-sm btn-secondary editarBtn" data-id="<?php echo $values['prod_id'] ?>" data-acao="editar"><i class="fas fa-pen-alt"></i></a>
-                                                            <a href="#" class="btn btn-sm btn-secondary editarBtn" data-id="<?php echo $values['prod_id'] ?>" data-acao="deletar"><i class="far fa-trash-alt"></i></a>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            <?php } ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            <?php
-                            } else {
-                                echo "Nenhum dado cadastrado.";
-                            }
-                            ?>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content pt-2">
+        <div class="container-fluid">    
+            <div class="col-md-12">       
+                <div class="card card-outline card-primary">
+                    <div class="card-body">                            
+                        <h3>Produtos cadastrados</h3>
+                        <hr>
+                        <?php
+                        $list = selecionarDoBanco('produto');
+                        $count = count($list);
+                        if ($count > 0) { ?>
+                            <div class="table-responsive">
+                                <table id="datatable" class="table table-hover table-sm w-100">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 10%">ID</th>
+                                            <th style="width: 40%">Titulo</th>
+                                            <th style="width: 15%">Valor</th>
+                                            <th style="width: 15%">Qtd</th>
+                                            <th style="width: 10%">Status</th>
+                                            <th style="width: 10%">Ação</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="row_position">
+                                        <?php foreach ($list as $values) { ?>
+                                            <tr>
+                                                <td><?php echo $values['prod_id'] ?></td>
+                                                <td><?php echo $values['prod_titulo'] ?></td>
+                                                <td><?php echo 'R$' . $values['prod_preco'] ?></td>
+                                                <td><?php echo $values['prod_quantidade'] . ' ' . $values['prod_unidade'] ?></td>
+                                                <td><?= ($values['prod_status'] == 1) ? '<span class="badge badge-pill badge-success">Ativo</span>' : '<span class="badge badge-pill badge-danger">Inativo</span>'; ?></td>
+                                                <td>
+                                                    <div class="btn-group w-100" role="group" aria-label="Basic example">
+                                                        <a href="#" class="btn btn-sm btn-secondary editarBtn" data-id="<?php echo $values['prod_id'] ?>" data-acao="editar"><i class="fas fa-pen-alt"></i></a>
+                                                        <a href="#" class="btn btn-sm btn-secondary editarBtn" data-id="<?php echo $values['prod_id'] ?>" data-acao="deletar"><i class="far fa-trash-alt"></i></a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <?php
+                        } else {
+                            echo "Nenhum dado cadastrado.";
+                        }
+                        ?>
                     </div>
                 </div>
             </div>
@@ -128,6 +141,7 @@
             'prod_quantidade': $('#qtd').val() ? parseInt($('#qtd').val(), 10) : null, 
             'prod_unidade': $('#unidade').val() ?? null,
             'prod_status': $('#status').val() ?? null,
+            'prod_situacao': 2,
         };
     }
 

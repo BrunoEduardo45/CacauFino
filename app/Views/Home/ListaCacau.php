@@ -13,7 +13,7 @@
     $produtosPG = $pdo->prepare("
         SELECT * 
         FROM cacau 
-        WHERE cac_status = 1 
+        WHERE cac_status = 1 and cac_situacao = 1
         ORDER BY cac_id DESC 
         LIMIT :inicio, :registros
     ");

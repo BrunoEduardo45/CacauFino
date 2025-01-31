@@ -5,9 +5,9 @@
     // ----------------------------------------------------------------
 
     if($cat_id){
-        $total = selecionarDoBanco('noticias', 'COUNT(*) as total', 'not_status = 1 AND not_categoria = ' . $cat_id);
+        $total = selecionarDoBanco('noticias', 'COUNT(*) as total', 'not_status = 1 and not_situacao = 1 AND not_categoria = ' . $cat_id);
     } else {
-        $total = selecionarDoBanco('noticias', 'COUNT(*) as total', 'not_status = 1');
+        $total = selecionarDoBanco('noticias', 'COUNT(*) as total', 'not_status = 1 and not_situacao = 1');
     }
     
     $total = $total[0]['total'];

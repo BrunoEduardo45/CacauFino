@@ -11,12 +11,12 @@
 ?>
 
 <div class="content-wrapper">
+    
     <section class="content pt-4">
         <form id="form" method="post">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-8">
-
                         <div class="card card-outline card-primary">
                             <div class="card-body">
                                 <h3>Dados da Notícia</h3>
@@ -74,10 +74,10 @@
                                 <?php } else { ?>
                                     <input type="hidden" id="Acao" name="Acao" value="salvar">
                                 <?php } ?>
-                                <a href="<?php echo $baseUrl ?>lista-noticias" class="btn btn-warning"><i class="fas fa-arrow-left"></i> Voltar</a>
-                                <button type="submit" class="btn btn-primary ml-2">Salvar</button>
+                                <a href="<?php echo $baseUrl ?>lista-noticias" class="btn btn-warning"><i class="fas fa-arrow-left mr-2"></i> Voltar</a>
+                                <button type="submit" class="btn btn-primary ml-2"><i class="fas fa-save mr-2"></i> Salvar</button>
                                 <?php if ($id) { ?>
-                                    <button type="button" id="deleta" class="btn btn-danger" data-acao="deletar">Deletar</button>
+                                    <button type="button" id="deleta" class="btn btn-danger ml-2" data-acao="deletar"><i class="fas fa-trash mr-2"></i> Deletar</button>
                                 <?php } ?>
                             </div>
                         </div>
@@ -101,9 +101,8 @@
             </div>
         </form>
     </section>
-    <!-- /.content -->
+
 </div>
-<!-- /.content-wrapper -->
 
 <div class="modal fade" id="modal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -144,6 +143,7 @@
             'not_categoria': $("#not_categoria").val(),
             'not_status': $("#not_status").val(),
             'not_usuario_id': $("#not_usuario_id").val(),
+            'not_situacao': 2,
         };
         return dados;
     }

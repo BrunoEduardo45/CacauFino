@@ -61,6 +61,8 @@ class UsuarioController extends Actions {
                     $usuNome = $value['usu_nome'];
                     $usuTipo = $value['usu_tipo'];
                     $usuStatus = $value['usu_status'];
+                    $comprador = $value['usu_comprador'];
+                    $vendedor = $value['usu_vendedor'];
                 }
         
                 if ($usuStatus == 2) {
@@ -89,7 +91,9 @@ class UsuarioController extends Actions {
                             "id" => $usuID,
                             "usuario" => $usuNome,
                             "tipo" => $usuTipo,
-                            "cpf" => $usuCPF
+                            "cpf" => $usuCPF,
+                            "comprador" => $comprador,
+                            "vendedor" => $vendedor,
                         ];
                         
                         $expirationTime = time() + (86400 * 30);

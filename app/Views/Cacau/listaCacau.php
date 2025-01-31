@@ -1,9 +1,8 @@
 <div class="content-wrapper">
-    <!-- Main content -->
+
     <section class="content pt-4">
         <div class="container-fluid">
             <div class="col-md-12">
-                <!-- Default box -->
                 <div class="card card-outline card-primary">
                     <div class="card-body">
                         <h3>Cadastrar Cacau</h3>
@@ -30,12 +29,6 @@
                                             <input type="text" class="form-control" id="qtd" name="qtd" value="" required>
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
-                                        <div id="step01" class="form-group">
-                                            <label class="form-label" for="descricao">Descricao</label>
-                                            <input type="text" class="form-control" id="descricao" name="descricao" value="" required>
-                                        </div>
-                                    </div>
                                     <div id="step04" class="col-lg-6">
                                         <div class="form-group">
                                             <label>Unidade</label>
@@ -56,6 +49,12 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="col-lg-12">
+                                        <div id="step01" class="form-group">
+                                            <label class="form-label" for="descricao">Descricao</label>
+                                            <input type="text" class="form-control" id="descricao" name="descricao" value="" required>
+                                        </div>
+                                    </div>
                                     <div class="col-lg-6">
                                         <div class="form-group mt-6">
                                             <label class="form-label" for="cadastro"></label>
@@ -70,58 +69,71 @@
                                     </div>
                                 </div>
                             </form>
-                            <br>
-                            <h3>Cacaus cadastradas</h3>
-                            <hr>
-                            <?php
-                            $list = selecionarDoBanco('cacau');
-                            $count = count($list);
-                            if ($count > 0) { ?>
-                                <div class="table-responsive">
-                                    <table id="table" class="table table-hover table-sm w-100">
-                                        <thead>
-                                            <tr>
-                                                <th style="width: 10%">ID</th>
-                                                <th style="width: 40%">Titulo</th>
-                                                <th style="width: 15%">Valor</th>
-                                                <th style="width: 15%">Qtd</th>
-                                                <th style="width: 10%">Status</th>
-                                                <th style="width: 10%">Ação</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="row_position">
-                                            <?php foreach ($list as $values) { ?>
-                                                <tr>
-                                                    <td><?php echo $values['cac_id'] ?></td>
-                                                    <td><?php echo $values['cac_titulo'] ?></td>
-                                                    <td><?php echo 'R$' . $values['cac_preco'] ?></td>
-                                                    <td><?php echo $values['cac_quantidade'] . ' ' . $values['cac_unidade'] ?></td>
-                                                    <td><?= ($values['cac_status'] == 1) ? '<span class="badge badge-pill badge-success">Ativo</span>' : '<span class="badge badge-pill badge-danger">Inativo</span>'; ?></td>
-                                                    <td>
-                                                        <div class="btn-group w-100" role="group" aria-label="Basic example">
-                                                            <a href="#" class="btn btn-sm btn-secondary editarBtn" data-id="<?php echo $values['cac_id'] ?>" data-acao="editar"><i class="fas fa-pen-alt"></i></a>
-                                                            <a href="#" class="btn btn-sm btn-secondary editarBtn" data-id="<?php echo $values['cac_id'] ?>" data-acao="deletar"><i class="far fa-trash-alt"></i></a>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            <?php } ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            <?php
-                            } else {
-                                echo "Nenhum dado cadastrado.";
-                            }
-                            ?>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <section class="content pt-2">
+        <div class="container-fluid">    
+            <div class="col-md-12">       
+                <div class="card card-outline card-primary">
+                    <div class="card-body">
+                        <h3>Cacaus cadastrados</h3>
+                        <hr>
+                        <?php
+                            $list = selecionarDoBanco('cacau');
+                            $count = count($list);
+                            if ($count > 0) { 
+                        ?>
+                            <div class="table-responsive">
+                                <table id="datatable" class="table table-hover table-sm w-100">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 10%">ID</th>
+                                            <th style="width: 40%">Titulo</th>
+                                            <th style="width: 15%">Valor</th>
+                                            <th style="width: 15%">Qtd</th>
+                                            <th style="width: 10%">Status</th>
+                                            <th style="width: 10%">Ação</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="row_position">
+                                        <?php foreach ($list as $values) { ?>
+                                            <tr>
+                                                <td><?php echo $values['cac_id'] ?></td>
+                                                <td><?php echo $values['cac_titulo'] ?></td>
+                                                <td><?php echo 'R$' . $values['cac_preco'] ?></td>
+                                                <td><?php echo $values['cac_quantidade'] . ' ' . $values['cac_unidade'] ?></td>
+                                                <td><?= ($values['cac_status'] == 1) ? '<span class="badge badge-pill badge-success">Ativo</span>' : '<span class="badge badge-pill badge-danger">Inativo</span>'; ?></td>
+                                                <td>
+                                                    <div class="btn-group w-100" role="group" aria-label="Basic example">
+                                                        <a href="#" class="btn btn-sm btn-secondary editarBtn" data-id="<?php echo $values['cac_id'] ?>" data-acao="editar"><i class="fas fa-pen-alt"></i></a>
+                                                        <a href="#" class="btn btn-sm btn-secondary editarBtn" data-id="<?php echo $values['cac_id'] ?>" data-acao="deletar"><i class="far fa-trash-alt"></i></a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <?php
+                        } else {
+                            echo "Nenhum dado cadastrado.";
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 </div>
 
 <script>
+
     function Dados() {
         return {
             'cac_titulo': $('#titulo').val() ?? null,
@@ -130,6 +142,7 @@
             'cac_quantidade': $('#qtd').val() ? parseInt($('#qtd').val(), 10) : null, 
             'cac_unidade': $('#unidade').val() ?? null,
             'cac_status': $('#status').val() ?? null,
+            'cac_situacao': 2,
         };
     }
 
@@ -242,4 +255,5 @@
             }
         });
     });
+
 </script>

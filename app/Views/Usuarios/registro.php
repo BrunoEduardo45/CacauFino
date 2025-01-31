@@ -41,18 +41,29 @@ include $baseDir . "/../../utils/Database.php";
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="cpf">CPF</label>
-                    <input type="cpf" class="form-control" id="cpf" name="cpf" placeholder="CPF" required>
+                    <input type="text" class="form-control" id="cpf" name="cpf" placeholder="CPF" required>
                 </div>
                 <label class="form-label" for="senha">Senha</label>
                 <div class="input-group mb-3">
-                    <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha" value="">
+                    <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha" required>
                     <div class="input-group-append">
                         <button class="btn btn-secondary" type="button" onclick="toggleSenha()"><i class="far fa-eye"></i></button>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="form-label">Tipo de Usuário</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="comprador" name="comprador" value="1">
+                        <label class="form-check-label" for="comprador">Sou Comprador</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="vendedor" name="vendedor" value="1">
+                        <label class="form-check-label" for="vendedor">Sou Vendedor</label>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-12 mb-2">
-                        <button type="submit" id="btnCadatro" class="btn btn-primary btn-block">Cadastrar</button>
+                        <button type="submit" id="btnCadastro" class="btn btn-primary btn-block">Cadastrar</button>
                     </div>
                 </div>
             </form>
@@ -79,79 +90,60 @@ include $baseDir . "/../../utils/Database.php";
 
 
 <script>
-    
     function toggleSenha() {
-      var senhaInput = document.getElementById("senha");
-      if (senhaInput.type === "password") {
-        senhaInput.type = "text";
-      } else {
-        senhaInput.type = "password";
-      }
+        var senhaInput = document.getElementById("senha");
+        senhaInput.type = senhaInput.type === "password" ? "text" : "password";
     }
 
-    function Dados()
-    {
+    function Dados() {
         return {
             'usu_nome': $('#nome').val() ?? null,
             'usu_cpf': $('#cpf').val() ?? null,
             'usu_senha': $('#senha').val() ?? null,
             'usu_status': 2,
             'usu_tipo': 2,
+            'usu_comprador': $('#comprador').is(':checked') ? 1 : 0,
+            'usu_vendedor': $('#vendedor').is(':checked') ? 1 : 0,
         };
     }
 
     $("#cadastro").submit(function(e) {
         e.preventDefault();
         Notiflix.Loading.Pulse('Carregando...');
-
+        
         var cpf = $("#cpf").val();
-        debugger;
+        
         $.ajax({
             type: "POST",
             dataType: "json",
             url: "<?php echo $baseUrl ?>verificar",
             data: {cpf: cpf},
             success: function(data) {
-                
-                if (data.acao == 'ok') {
-                    $("#cpf").addClass('is-valid');
-                    $("#cpf").removeClass('is-invalid');
+                if (data.acao === 'ok') {
                     $.ajax({
                         type: "POST",
                         url: "<?php echo $baseUrl ?>inserir-usuario",
                         data: {dados: Dados()},
                         success: function(data) {
-                            if (data.acao == 'ok') {
+                            if (data.acao === 'ok') {
                                 Notiflix.Loading.Remove();
                                 Notiflix.Report.Success(
                                     'Sucesso!',
-                                    'Seu cadastro foi realizado com sucesso! Aguarde liberação da nossa equipe de suporte.',
+                                    'Seu cadastro foi realizado com sucesso!',
                                     'Ok',
-                                    function() {window.location.href = "<?php echo $baseUrl ?>";}
+                                    function() { window.location.href = "<?php echo $baseUrl ?>"; }
                                 );
                             } else {
                                 Notiflix.Loading.Remove();
                                 Notiflix.Notify.Failure(data.msg);
-                                return false;
                             }
-                        },
-                        error: function(error) {
-                            console.error("Erro na requisição AJAX:", error);
                         }
                     });
                 } else {
                     Notiflix.Loading.Remove();
-                    $("#cpf").addClass('is-invalid');
-                    $("#cpf").removeClass('is-valid');
                     Notiflix.Notify.Failure('Este CPF já existe em nossa base!');
-                    $("#cpf").focus();
-                    return false;
                 }
-            },
-            error: function(error) {
-                console.error("Erro na requisição AJAX:", error);
             }
-
         });
     });
 </script>
