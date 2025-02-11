@@ -14,10 +14,38 @@ include $baseDir . "/../../utils/Database.php";
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cadastro - <?php echo $nomeSistema ?></title>
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <link rel="stylesheet" href="<?php echo $baseUrl ?>app/public/plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="<?php echo $baseUrl ?>app/public/plugins/notiflix/notiflix-2.7.0.min.css">
-    <link rel="stylesheet" href="<?php echo $baseUrl ?>app/public/css/adminlte.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Marcellus:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo $baseUrl ?>app/public/plugins/tour/jquery.enjoyhint.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="app/public/css/main.css" rel="stylesheet">
+
+    <style>
+        .btn-primary {
+          background-color: <?php echo $corSecundaria.'95'?>;
+          border: 1px solid <?php echo $corSecundaria.'60' ?>;
+        }
+
+        .btn-primary:hover{
+          background-color: <?php echo $corSecundaria ?>;
+          border: 1px solid <?php echo $corSecundaria ?>;
+        }
+        
+        .login-box {
+            width: 100%;
+            height: 100vh; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 400px; /* Define um tamanho máximo para a caixa de login */
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Adiciona um leve sombreado */
+            border-radius: 10px; /* Bordas arredondadas */
+        }
+
+    </style>
 </head>
 
 <body class="hold-transition login-page" style="background-image: linear-gradient(<?php echo  $corSecundaria . ',' . $corPrimaria ?>);">
@@ -32,7 +60,7 @@ include $baseDir . "/../../utils/Database.php";
             ?>
         </div>
         <div class="card-body  login-card-body">
-            <p class="login-box-msg">Realize seu cadastro</p>
+            <p class="w-100 text-center">Realize seu cadastro</p>
 
             <form id="cadastro" action="" method="post">
                 <div class="form-group">
@@ -50,7 +78,7 @@ include $baseDir . "/../../utils/Database.php";
                         <button class="btn btn-secondary" type="button" onclick="toggleSenha()"><i class="far fa-eye"></i></button>
                     </div>
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label class="form-label">Tipo de Usuário</label>
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="comprador" name="comprador" value="1">
@@ -60,7 +88,7 @@ include $baseDir . "/../../utils/Database.php";
                         <input class="form-check-input" type="checkbox" id="vendedor" name="vendedor" value="1">
                         <label class="form-check-label" for="vendedor">Sou Vendedor</label>
                     </div>
-                </div>
+                </div> -->
                 <div class="row">
                     <div class="col-12 mb-2">
                         <button type="submit" id="btnCadastro" class="btn btn-primary btn-block">Cadastrar</button>
@@ -88,6 +116,7 @@ include $baseDir . "/../../utils/Database.php";
 </body>
 </html>
 
+<script src="<?php echo $baseUrl ?>app/public/plugins/fontawesome-free/script/c337de081b.js"></script>
 
 <script>
     function toggleSenha() {

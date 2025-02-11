@@ -18,6 +18,26 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>Tipo de Cacau</label>
+                                            <select class="form-control" id="tipo_cacau" name="tipo_cacau">
+                                                <option value="">Selecionar</option>
+                                                <option value="Comum">Comum</option>
+                                                <option value="Especial">Especial</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>Tipo de Anúncio</label>
+                                            <select class="form-control" id="tipo_anuncio" name="tipo_anuncio">
+                                                <option value="">Selecionar</option>
+                                                <option value="Venda">Venda</option>
+                                                <option value="Compra">Compra</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
                                         <div id="step01" class="form-group">
                                             <label class="form-label" for="preco">Preço</label>
                                             <input type="text" class="form-control" id="preco" name="preco" value="" required>
@@ -29,7 +49,7 @@
                                             <input type="text" class="form-control" id="qtd" name="qtd" value="" required>
                                         </div>
                                     </div>
-                                    <div id="step04" class="col-lg-6">
+                                    <div id="step04" class="col-lg-3">
                                         <div class="form-group">
                                             <label>Unidade</label>
                                             <select class="form-control" id="unidade" name="unidade">
@@ -40,12 +60,28 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div id="step04" class="col-lg-6">
+                                    <div id="step04" class="col-lg-3">
                                         <div class="form-group">
                                             <label>Status</label>
                                             <select class="form-control" id="status" name="status">
                                                 <option value="1">Ativo</option>
                                                 <option value="0">Inativo</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Estado</label>
+                                            <select class="form-control" id="estado" name="estado" onchange="carregarCidades()">
+                                                <option value="">Selecionar</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Cidade</label>
+                                            <select class="form-control" id="cidade" name="cidade">
+                                                <option value="">Selecionar</option>
                                             </select>
                                         </div>
                                     </div>
@@ -133,6 +169,34 @@
 </div>
 
 <script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados")
+            .then(response => response.json())
+            .then(estados => {
+                estados.sort((a, b) => a.nome.localeCompare(b.nome));
+                let selectEstado = document.getElementById("estado");
+                estados.forEach(estado => {
+                    let option = new Option(estado.nome, estado.id);
+                    selectEstado.add(option);
+                });
+            });
+    });
+
+    function carregarCidades() {
+        let estadoId = document.getElementById("estado").value;
+        let selectCidade = document.getElementById("cidade");
+        selectCidade.innerHTML = "<option value=''>Selecionar</option>";
+
+        fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${estadoId}/municipios`)
+            .then(response => response.json())
+            .then(cidades => {
+                cidades.forEach(cidade => {
+                    let option = new Option(cidade.nome, cidade.id);
+                    selectCidade.add(option);
+                });
+            });
+    }
 
     function Dados() {
         return {

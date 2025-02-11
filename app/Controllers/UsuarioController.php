@@ -38,18 +38,17 @@ class UsuarioController extends Actions {
 
     //Ação
     public function Login(){
-        session_start();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        
+            
+            session_start();
+
             $baseDir = dirname(__FILE__);
             include $baseDir . "/../utils/Database.php";
-        
-            date_default_timezone_set('America/Sao_Paulo');
-        
+                
             $usuariocpf = $_POST['cpf'];
             $senhausuario = $_POST['senha'];
         
-            $sql = selecionarDoBanco('usuarios', '*', 'usu_cpf = :cpf', [':cpf' => $usuariocpf]);
+            $sql = selecionarDoBanco('usuarios', '*', 'usu_cpf = :cpf LIMIT 1', [':cpf' => $usuariocpf]);
             $total = count($sql);
         
             if ($total > 0) {
@@ -92,8 +91,8 @@ class UsuarioController extends Actions {
                             "usuario" => $usuNome,
                             "tipo" => $usuTipo,
                             "cpf" => $usuCPF,
-                            "comprador" => $comprador,
-                            "vendedor" => $vendedor,
+                            "comprador" => $comprador ?? 0,
+                            "vendedor" => $vendedor ?? 0,
                         ];
                         
                         $expirationTime = time() + (86400 * 30);

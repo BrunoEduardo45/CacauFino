@@ -29,6 +29,11 @@ class HomeController extends Actions {
         loadView('Sobre', $tabela,[]);
     } 
 
+    public function Cotacoes(){
+        global $tabela;
+        loadView('Cotacoes', $tabela,[]);
+    } 
+
     public function Produtos(){
         global $tabela;
         $pagina = $_GET['pagina'] ?? 1;
@@ -57,16 +62,44 @@ class HomeController extends Actions {
     {
         global $tabela;
         $pagina = $_GET['pagina'] ?? 1;
+        $tipo = 1;
+
         loadView('ListaNoticia', $tabela,[
             'pagina' => $pagina,
+            'tipo' => $tipo,
+        ]);
+    }
+    
+    public function Eventos()
+    {
+        global $tabela;
+        $pagina = $_GET['pagina'] ?? 1;
+        $tipo = 2;
+
+        loadView('ListaNoticia', $tabela,[
+            'pagina' => $pagina,
+            'tipo' => $tipo,
         ]);
     }
 
-    public function Noticia($id)
+    public function Blog()
     {
         global $tabela;
-        loadView('noticia', $tabela,[
-            'IDNoticia' => $id[0],
+        $pagina = $_GET['pagina'] ?? 1;
+        $tipo = 3;
+        
+        loadView('ListaNoticia', $tabela,[
+            'pagina' => $pagina,
+            'tipo' => $tipo,
+        ]);
+    }
+
+    public function Noticia()
+    {
+        global $tabela;
+        $id = $_GET['id'];
+        loadView('Noticia', $tabela,[
+            'IDNoticia' => $id,
         ]);
     }
 }

@@ -1,18 +1,5 @@
-<div class="content-wrapper">
-    
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mt-3">
-                <div class="col-md-12 text-center">
-                    <h1 class="m-0 p-3 rounded" style="background-color: <?php echo $corSecundaria.'20' ?>;">Notícia</h1>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <section class="content">
-        <div class="container-fluid">
-            <div class="row mt-3 mb-3">
+    <section class="py-4 px-0">
+            <div class="row">
                 <?php
                     $join = [
                         "INNER JOIN categoria ON (cat_id = not_categoria)",
@@ -25,7 +12,7 @@
                         <div class="card">
                             <img src="<?php echo $baseUrl . $values['not_url_imagem'] ?>" class="card-img-top" alt="<?php echo $values['not_titulo'] ?>">
                             <div class="card-body">
-                                <h3><?php echo $values['not_titulo'] ?></h3>
+                                <h3><b><?php echo $values['not_titulo'] ?></b></h3>
                                 <p class="card-text text-justify"><?php echo $values['not_descricao'] ?></p>
                             </div>
                         </div>
@@ -33,9 +20,9 @@
                     <div class="col-lg-4">
                         <div class="card">
                             <div class="card-body">
-                                <p><i class="far fa-calendar-alt mr-2"></i> Publicado em: <?php echo date('d/m/Y', strtotime($values['not_data_publicacao'])) ?></p>
-                                <p><i class="fas fa-tags mr-2"></i> Categoria: <?php echo $values['cat_nome'] ?></p>
-                                <p><i class="fas fa-user-circle mr-2"></i> Criado por: <?php echo $values['usu_nome'] ?></p>
+                                <p><i class="far fa-calendar-alt mr-2"></i> <b>Publicado em: </b><?php echo date('d/m/Y', strtotime($values['not_data_publicacao'])) ?></p>
+                                <p><i class="fas fa-tags mr-2"></i> <b>Categoria: </b><?php echo $values['cat_nome'] ?></p>
+                                <p><i class="fas fa-user-circle mr-2"></i> <b>Criado por: </b><?php echo $values['usu_nome'] ?></p>
                             </div>
                         </div>
                     </div>
@@ -43,7 +30,7 @@
             </div>
 
             <!-- Sessão de Comentários -->
-            <div class="row mt-3 mb-3">
+            <div class="row mt-5 mb-3">
                 <div class="col-lg-8">
                     <h4>Comentários</h4>
                     <div id="comentarios">
@@ -78,20 +65,18 @@
                                 </div>
                                 <input type="hidden" name="noticia_id" id="noticia_id" value="<?php echo $IDNoticia; ?>">
                                 <input type="hidden" name="usuario_id" id="usuario_id" value="<?php echo $IdUser; ?>">
-                                <button type="submit" class="btn btn-primary">Enviar</button>
+                                <div class="d-flex justify-content-end mt-3">
+                                    <button type="submit" class="btn btn-primary">Publicar</button>
+                                </div>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-
-        </div>
-    </section>
-</div>
+  </section>
 
 <script>
     $(document).ready(function() {
-
         $('#form-comentario').submit(function(e) {
             e.preventDefault();
             var dados = {
@@ -181,7 +166,7 @@
                 }
             });
         });
-    });
-
-    
+    });  
 </script>
+
+

@@ -2,7 +2,7 @@
 
     $id = $id[0] ?? 0;
     $result = selecionarDoBanco('noticias', '*', 'not_id = :id LIMIT 1', ['id' => $id]);
-    $defaultValues = ['not_id', 'not_titulo', 'not_descricao', 'not_data_publicacao', 'not_categoria', 'not_url_imagem', 'not_nome_imagem', 'not_status', 'not_usuario_id'];
+    $defaultValues = ['not_id', 'not_titulo', 'not_descricao', 'not_data_publicacao', 'not_categoria', 'not_url_imagem', 'not_nome_imagem', 'not_status', 'not_usuario_id', 'not_tipo'];
 
     foreach ($defaultValues as $value) {
         ${$value} = ($result !== false && isset($result[0][$value])) ? $result[0][$value] : "";
@@ -40,7 +40,7 @@
                                         </div>
                                     </div>
 
-                                    <div id="step04" class="col-lg-6">
+                                    <div id="step04" class="col-lg-4">
                                         <div class="form-group">
                                             <label>Categoria</label>
                                             <select class="form-control" id="not_categoria" name="not_categoria">
@@ -55,12 +55,22 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="not_status">Status</label>
                                             <select class="form-control" id="not_status" name="not_status" required>
                                                 <option value="1" <?php echo ($not_status == 1) ? "selected" : ""; ?>>Ativo</option>
                                                 <option value="0" <?php echo ($not_status == 0) ? "selected" : ""; ?>>Inativo</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="not_tipo">Tipo</label>
+                                            <select class="form-control" id="not_tipo" name="not_tipo" required>
+                                                <option value="1" <?php echo ($not_tipo == 1) ? "selected" : ""; ?>>Noticia</option>
+                                                <option value="2" <?php echo ($not_tipo == 2) ? "selected" : ""; ?>>Evento</option>
+                                                <option value="3" <?php echo ($not_tipo == 3) ? "selected" : ""; ?>>Blog</option>
                                             </select>
                                         </div>
                                     </div>
@@ -143,6 +153,7 @@
             'not_categoria': $("#not_categoria").val(),
             'not_status': $("#not_status").val(),
             'not_usuario_id': $("#not_usuario_id").val(),
+            'not_tipo': $("#not_tipo").val(),
             'not_situacao': 2,
         };
         return dados;

@@ -1,6 +1,6 @@
 <?php
 
-function loadView($view, $tabela, $args = [], $loadHeader = true, $loadSidebar = true, $loadFooter = true)
+function loadView($view, $tabela, $args = [], $loadHeader = true, $loadFooter = true)
 {
     extract($args);
 

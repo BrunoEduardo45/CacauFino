@@ -29,11 +29,11 @@
                                             <tr>
                                                 <th style="width: 5%">Id</th>
                                                 <th style="width: 25%">Nome</th>
-                                                <th style="width: 25%">CPF</th>
-                                                <th style="width: 20%">Celular</th>
+                                                <th style="width: 10%">CPF</th>
+                                                <th style="width: 15%">Celular</th>
                                                 <th style="width: 10%">Tipo</th>
-                                                <th style="width: 10%">Status</th>
-                                                <th style="width: 5%">Ação</th>
+                                                <th style="width: 5%">Status</th>
+                                                <th style="width: 20%">Ações</th>
                                             </tr>
                                         </thead>
                                         <tbody class="row_position">
@@ -47,7 +47,7 @@
                                                     <td><?php echo $values['tp_nome'] ?></td>
                                                     <td>
                                                         <?php if ($values['sts_nome'] == 'Aprovado') {
-                                                            echo '<span class="badge badge-pill badge-success">Aprovados</span>';
+                                                            echo '<span class="badge badge-pill badge-success">Aprovado</span>';
                                                         } else if ($values['sts_nome'] == 'Bloqueado') {
                                                             echo '<span class="badge badge-pill badge-dark">Bloqueado</span>';
                                                         } else if ($values['sts_nome'] == 'Reprovado') {
@@ -56,19 +56,15 @@
                                                             echo '<span class="badge badge-pill badge-warning">Aguardando</span>';
                                                         } ?>
                                                     </td>
-                                                    <td>
-                                                        <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle btn-sm btn-block" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</button>
-                                                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                            <a class="dropdown-item" onclick="editarUsuario(this)" href="#" data-acao="visualizar"><i class="fas fa-pen-alt"></i> Editar</a>
-                                                            <a class="dropdown-item" onclick="editarUsuario(this)" href="#" data-acao="resetarSenha"><i class="fas fa-key"></i> Resetar senha</a>
-                                                            <?php if ($tipo == 1) { ?>
-                                                                <a class="dropdown-item" onclick="editarUsuario(this)" href="#" data-acao="deletar"><i class="far fa-trash-alt"></i> Deletar uruário</a>
-                                                            <?php } ?>
-                                                        </div>
+                                                    <td class="d-flex justify-content-between">
+                                                        <button class="btn btn-primary btn-sm" onclick="editarUsuario(this)" data-acao="visualizar"><i class="fas fa-pen-alt"></i> Editar</button>
+                                                        <button class="btn btn-warning btn-sm" onclick="editarUsuario(this)" data-acao="resetarSenha"><i class="fas fa-key"></i> Resetar</button>
+                                                        <?php if ($tipo == 1) { ?>
+                                                            <button class="btn btn-danger btn-sm" onclick="editarUsuario(this)" data-acao="deletar"><i class="far fa-trash-alt"></i> Deletar</button>
+                                                        <?php } ?>
                                                     </td>
                                                 </tr>
                                             <?php } ?>
-
                                         </tbody>
                                     </table>
                                 </div>
@@ -82,7 +78,7 @@
                     <div class="card-footer">
                         <div class="row">
                             <div class="col-lg-4 mb-3">
-                                <a class='btn btn-primary btn-block' href="<?php echo $baseUrl ?>cadastrar-usuario"><i class="fas fa-plus"></i> Cadastrar usuario</a>
+                                <a class='btn btn-primary btn-block' href="<?php echo $baseUrl ?>cadastrar-usuario"><i class="fas fa-plus"></i> Cadastrar usuário</a>
                             </div>
                         </div>
                     </div>
@@ -94,7 +90,7 @@
                 <div class="modal-dialog modal-dialog-centered modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Membro</h5>
+                            <h5 class="modal-title" id="staticBackdropLabel">Usuario</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -110,25 +106,25 @@
                                             <input type="text" id="nome" name="nome" class="form-control" value="" required>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-3">
                                         <div class="form-group">
                                             <label class="form-label" for="cpf">CPF</label>
                                             <input type="text" id="cpf" name="cpf" class="form-control" value="" required>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-3">
                                         <div class="form-group">
                                             <label class="form-label" for="telefone">Telefone</label>
                                             <input type="text" id="telefone" name="telefone" class="form-control telefone" value="">
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-3">
                                         <div class="form-group">
                                             <label class="form-label" for="celular">Celular</label>
                                             <input type="text" id="celular" name="celular" class="form-control celular" value="">
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-3">
                                         <div class="form-group">
                                             <label class="form-label" for="sexo">Sexo</label>
                                             <select class="form-control" id="sexo" name="sexo">
@@ -138,7 +134,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-3">
                                         <div class="form-group">
                                             <label class="form-label" for="status">Status</label>
                                             <select class="form-control" id="status" name="status">
@@ -149,6 +145,20 @@
                                                     <option value="<?php echo $values['sts_id'] ?>"><?php echo $values['sts_nome'] ?></option>
                                                 <?php } ?>
                                             </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label class="form-label">Tipo de Usuário</label>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="comprador" name="comprador" value="1">
+                                                <label class="form-check-label" for="comprador">Sou Comprador</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="vendedor" name="vendedor" value="1">
+                                                <label class="form-check-label" for="vendedor">Sou Vendedor</label>
+                                            </div>
                                         </div>
                                     </div>
                                     
@@ -209,6 +219,8 @@
                     $("#celular").val(data[0].usu_celular);
                     $("#status").val(data[0].usu_status);
                     $("#tipo").val(data[0].usu_tipo);
+                    $("#vendedor").prop("checked", data[0].usu_vendedor == 1);
+                    $("#comprador").prop("checked", data[0].usu_comprador == 1);
                     $('#usuarioModal').modal('show');
                 },
                 error: function(error) {

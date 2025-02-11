@@ -11,11 +11,14 @@ include $baseDir . "/../../utils/Database.php";
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  
   <title><?php echo $nomeSistema ?></title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <link rel="stylesheet" href="<?php echo $baseUrl ?>app/public/plugins/fontawesome-free/css/all.min.css">
-  <link rel="stylesheet" href="<?php echo $baseUrl ?>app/public/plugins/notiflix/notiflix-2.7.0.min.css">
-  <link rel="stylesheet" href="<?php echo $baseUrl ?>app/public/css/adminlte.min.css">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Marcellus:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="<?php echo $baseUrl ?>app/public/plugins/tour/jquery.enjoyhint.css" rel="stylesheet">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="app/public/css/main.css" rel="stylesheet">
+
   <style>
         .btn-primary {
           background-color: <?php echo $corSecundaria.'95'?>;
@@ -26,12 +29,29 @@ include $baseDir . "/../../utils/Database.php";
           background-color: <?php echo $corSecundaria ?>;
           border: 1px solid <?php echo $corSecundaria ?>;
         }
+        
+        .login-box {
+            width: 100%;
+            height: 100vh; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 400px; /* Define um tamanho máximo para a caixa de login */
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Adiciona um leve sombreado */
+            border-radius: 10px; /* Bordas arredondadas */
+        }
+
     </style>
 </head>
 
 <body class="hold-transition login-page" style="background-image: linear-gradient(<?php echo  $corSecundaria . ',' . $corPrimaria ?>);">
-  <div class="login-box">
-    <div class="card">
+ 
+<div class="login-box">
+    <div class="card w-50">
       <div class="card-header text-center" style="background: <?php echo $corPrimaria ?>">
         <?php if ($urlLogo) {
           echo '<img src="' . $baseUrl . $urlLogo . '" alt="' . $nomeSistema . '">';
@@ -41,7 +61,7 @@ include $baseDir . "/../../utils/Database.php";
         ?>
       </div>
       <div class="card-body  login-card-body">
-        <p class="login-box-msg">Faça o seu login a baixo</p>
+        <p class="w-100 text-center">Faça o seu login a baixo</p>
 
         <form id="login" action="" method="post">
           <div class="input-group mb-3">
@@ -84,51 +104,75 @@ include $baseDir . "/../../utils/Database.php";
   <script src="<?php echo $baseUrl ?>app/public/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="<?php echo $baseUrl ?>app/public/plugins/notiflix/notiflix-2.7.0.min.js"></script>
   <script src="<?php echo $baseUrl ?>app/public/js/adminlte.min.js"></script>
-</body>
-</html>
+  <script src="<?php echo $baseUrl ?>app/public/plugins/fontawesome-free/script/c337de081b.js"></script>
 
 <script>
 
   $("#login").submit(function(e) {
     e.preventDefault();
-    Notiflix.Loading.Pulse('Carregando...');
-    $.ajax({
-      type: "POST",
-      url: "<?php echo $baseUrl ?>login",
-      data: $("#login").serialize(),
-      success: function(data) {
-        if (data.resultado == 'erro') {
-          Notiflix.Notify.Failure(data.msg);
-          Notiflix.Loading.Remove();
-          setTimeout(function() {
-            location.reload();
-          }, 2000);
-        } else if (data.resultado == 'bloqueado') {
-          Notiflix.Loading.Remove();
-          Notiflix.Report.Warning(
-            'Atenção!',
-            'Seu usuário está inativo. Entre em contato com o administrador do sistema.',
-            'Ok');
-        } else if (data.resultado == 'aguardando') {
-          Notiflix.Loading.Remove();
-          Notiflix.Report.Warning(
-            'Atenção!',
-            'Seu usuário está em analise por favor aguarde.',
-            'Ok');
-        } else if (data.resultado == 'reprovado') {
-          Notiflix.Loading.Remove();
-          Notiflix.Report.Warning(
-            'Atenção!',
-            'Seu usuário foi reprovado favor entrar em contato com seu líder.',
-            'Ok');
-        } else {
-          window.location.href = "/";
-        }
-      },
-      error: function(error) {
-        console.error("Erro na requisição AJAX:", error);
-      }
-    });
+
+    var cpf = $('#cpf').val();
+    var senha = $('#senha').val();
+
+    if(cpf != "" && senha != ""){
+        Notiflix.Loading.Pulse('Carregando...');
+        $.ajax({
+            type: "POST",
+            url: "<?php echo $baseUrl ?>login",
+            data: $("#login").serialize(),
+            success: function(data) {
+
+                console.log(data);
+
+                if (data.resultado == 'erro') 
+                {
+                    Notiflix.Notify.Failure(data.msg);
+                    Notiflix.Loading.Remove();
+                    setTimeout(function() {
+                        location.reload();
+                    }, 2000);
+                } 
+                else if (data.resultado == 'bloqueado') 
+                {
+                    Notiflix.Loading.Remove();
+                    Notiflix.Report.Warning(
+                    'Atenção!',
+                    'Seu usuário está inativo. Entre em contato com o administrador do sistema.',
+                    'Ok');
+                } 
+                else if (data.resultado == 'aguardando') 
+                {
+                    Notiflix.Loading.Remove();
+                    Notiflix.Report.Warning(
+                    'Atenção!',
+                    'Seu usuário está em analise por favor aguarde.',
+                    'Ok');
+                } 
+                else if (data.resultado == 'reprovado') 
+                {
+                    Notiflix.Loading.Remove();
+                    Notiflix.Report.Warning(
+                    'Atenção!',
+                    'Seu usuário foi reprovado favor entrar em contato com seu líder.',
+                    'Ok');
+                } 
+                else 
+                {
+                    if (data.nivel == 1)
+                    window.location.href = "<?php echo $baseUrl."dashboard" ?>";
+                    else 
+                    window.location.href = "<?php echo $baseUrl ?>";
+                }
+            },
+            error: function(error) {
+                console.error("Erro na requisição AJAX:", error);
+                Notiflix.Loading.remove();
+            }
+        });
+    }
   });
 
 </script>
+
+</body>
+</html>
