@@ -49,7 +49,7 @@ $currentPage = basename($_SERVER['REQUEST_URI'], ".php");
   <link href="<?php echo $baseUrl ?>app/public/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
   <link href="<?php echo $baseUrl ?>app/public/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="<?php echo $baseUrl ?>app/public/vendor/aos/aos.css" rel="stylesheet">
-  <link href="<?php echo $baseUrl ?>app/public/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
   <link href="<?php echo $baseUrl ?>app/public/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
 
   <!-- Antigos --> 
@@ -67,48 +67,240 @@ $currentPage = basename($_SERVER['REQUEST_URI'], ".php");
 
   <link rel="stylesheet" href="<?php echo $baseUrl ?>app/public/plugins/tour/jquery.enjoyhint.css" rel="stylesheet">
   <link rel="stylesheet" href="<?php echo $baseUrl ?>app/public/css/adminlte.css">
+  
+  <!-- Chart.js (versão 3 ou 4) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
 
 
   <!-- Main CSS File -->
   <link href="app/public/css/main.css" rel="stylesheet">
 
   <style>
-        @media print {
-            @page {
-                size: landscape;
-            }
-        }
-        .table-primary, .btn-primary, .btn-outline-primary, .badge-primary, .alert-primary, .list-group-item-primary, 
-        .bg-primary, .border-primary {
-          background-color: <?php echo $corSecundaria ?>;
-          border: 1px solid <?php echo $corSecundaria ?>;
-        }
-
-        .card-primary.card-outline {
-          border-top: 3px solid <?php echo $corSecundaria ?>;
-        }
-
-        .btn-primary:hover, .btn-outline-primary:hover, .badge-primary:hover, .list-group-item-primary:hover{
-          background-color: <?php echo $corSecundaria.'99' ?>;
-          border: 1px solid <?php echo $corSecundaria.'05' ?>;
-        }
-
-      .navbar-nav .nav-link.active {
-          font-weight: bold;
-          color: <?php echo $corSecundaria ?> !important;
-          transition: all 0.3s ease-in-out;
+    @media print {
+      @page {
+        size: landscape;
       }
-      h1,h2,h3,h4,h5 {
-        color: <?php echo $corSecundaria ?>;
-      }
-    </style>
+    }
+
+    body {
+      background-color: #d0d4a44d;
+    }
+
+    .table-primary, .btn-primary, .btn-outline-primary, .badge-primary, .alert-primary, .list-group-item-primary, 
+    .bg-primary, .border-primary {
+      background-color: <?php echo $corSecundaria ?>;
+      border: 1px solid <?php echo $corSecundaria ?>;
+    }
+
+    .card-primary.card-outline {
+      border-top: 3px solid <?php echo $corSecundaria ?>;
+    }
+
+    .btn-primary:hover, .btn-outline-primary:hover, .badge-primary:hover, .list-group-item-primary:hover {
+      background-color: <?php echo $corSecundaria.'99' ?>;
+      border: 1px solid <?php echo $corSecundaria.'05' ?>;
+    }
+
+    .navbar-nav .nav-link.active {
+      font-weight: bold;
+      color: <?php echo $corSecundaria ?> !important;
+      transition: all 0.3s ease-in-out;
+    }
+
+    h1, h2, h3, h4, h5 {
+      color: <?php echo $corSecundaria ?>;
+    }
+
+    .descricao-limitada {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: #202122;
+    }
+
+    .pagination .page-item .page-link {
+      color: <?php echo $corSecundaria ?>;
+    }
+
+    .pagination .page-item .page-link:hover {
+      background-color: <?php echo $corSecundaria . '30' ?>;
+    }
+
+    .pagination .page-item.active .page-link {
+      background-color: <?php echo $corPrimaria ?>;
+      border-color: <?php echo $corPrimaria ?>;
+    }
+
+    section {
+      background-color: #fff0;
+    }
+
+    .card-cotacao {
+      background: #fdfdfc; 
+      border-radius: 10px; 
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
+      padding: 10px;
+      margin: 0 auto; 
+      position: relative; 
+      transition: transform 0.2s;
+    }
+
+    .card-cotacao:hover {
+      transform: scale(1.02);
+    }
+
+    .card-cotacao a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .card-cotacao .post-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 5px 5px 0 0;
+    }
+
+    .card-cotacao .p-3 {
+      padding: 15px;
+    }
+
+    .card-cotacao .titulo {
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+
+    .card-cotacao .descricao-limitada {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
+
+    .header-cotacao {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .header-cotacao img {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    .header-cotacao .titulo, .titulo {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: <?php echo $corSecundaria ?>; 
+    }
+
+    .info-preco {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: <?php echo $corSecundaria ?>; 
+      margin-right: 20px;
+    }
+
+    .info-variacao {
+      color: red; 
+      font-weight: 700;
+      margin-right: 10px;
+    }
+
+    .grafico-container {
+      width: 100%;
+      height: 200px;
+      position: relative;
+    }
+
+    canvas {
+      width: 100% !important;
+      height: 200px !important;
+    }
+
+    .post-img img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .titulo {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: <?php echo $corSecundaria ?>; 
+    }
+
+    .descricao-limitada {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: <?php echo $corSecundaria ?>;
+    }
+
+    .btn-outline-dark {
+      border-color: <?php echo $corSecundaria ?>;
+      color: <?php echo $corSecundaria ?>;
+    }
+
+    .btn-outline-dark:hover {
+      background-color: <?php echo $corSecundaria ?>;
+      color: #fff;
+    }
+
+    /* Faz com que cada slide possa ter pseudo-elemento com gradiente */
+    .swiper-slide {
+      position: relative;
+      overflow: hidden; 
+    }
+
+    /* Personaliza os botões de navegação */
+    .swiper-button-prev,
+    .swiper-button-next {
+      color: #fff; 
+    }
+
+    .swiper-button-prev {
+      left: 10px;
+    }
+
+    .swiper-button-next {
+      right: 10px;
+    }
+
+    /* Paginação (bolinhas) */
+    .swiper-pagination-bullet {
+      background: rgba(255, 255, 255, 0.7);
+    }
+
+    .swiper-pagination-bullet-active {
+      background: #fff;
+    }
+
+    /* cor imagem */
+    .swiper-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.5);
+    }
+  </style>
 
 </head>
 
 <body class="index-page">
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-<header id="header" class="d-flex flex-column align-items-center position-relative w-100">
+<header id="header" class="d-flex flex-column align-items-center position-relative w-100"  style="background-color: #fff;">
 
     <!-- Menu Principal -->
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between py-3">

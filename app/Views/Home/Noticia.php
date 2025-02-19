@@ -9,21 +9,19 @@
                     foreach ($result as $values) { 
                 ?>
                     <div class="col-lg-8">
-                        <div class="card">
-                            <img src="<?php echo $baseUrl . $values['not_url_imagem'] ?>" class="card-img-top" alt="<?php echo $values['not_titulo'] ?>">
-                            <div class="card-body">
-                                <h3><b><?php echo $values['not_titulo'] ?></b></h3>
-                                <p class="card-text text-justify"><?php echo $values['not_descricao'] ?></p>
+                        <div class="card-cotacao p-4">
+                            <img src="<?php echo $baseUrl . $values['not_url_imagem'] ?>" class="card-img-top rounded" alt="<?php echo $values['not_titulo'] ?>">
+                            <div class="">
+                                <h3 class="mt-3"><b><?php echo $values['not_titulo'] ?></b></h3>
+                                <p class="text-justify"><?php echo $values['not_descricao'] ?></p>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <p><i class="far fa-calendar-alt mr-2"></i> <b>Publicado em: </b><?php echo date('d/m/Y', strtotime($values['not_data_publicacao'])) ?></p>
-                                <p><i class="fas fa-tags mr-2"></i> <b>Categoria: </b><?php echo $values['cat_nome'] ?></p>
-                                <p><i class="fas fa-user-circle mr-2"></i> <b>Criado por: </b><?php echo $values['usu_nome'] ?></p>
-                            </div>
+                        <div class="card-cotacao p-4">
+                            <p><i class="far fa-calendar-alt mr-2"></i> <b>Publicado em: </b><?php echo date('d/m/Y', strtotime($values['not_data_publicacao'])) ?></p>
+                            <p><i class="fas fa-tags mr-2"></i> <b>Categoria: </b><?php echo $values['cat_nome'] ?></p>
+                            <p class="m-0"><i class="fas fa-user-circle mr-2"></i> <b>Criado por: </b><?php echo $values['usu_nome'] ?></p>
                         </div>
                     </div>
                 <?php } ?>

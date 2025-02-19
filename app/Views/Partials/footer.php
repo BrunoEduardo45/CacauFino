@@ -83,8 +83,8 @@
 <!-- Vendor JS Files -->
 <script src="<?php echo $baseUrl ?>app/public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="<?php echo $baseUrl ?>app/public/vendor/php-email-form/validate.js"></script>
-<script src="<?php echo $baseUrl ?>app/public/vendor/aos/aos.js"></script>
-<script src="<?php echo $baseUrl ?>app/public/vendor/swiper/swiper-bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 <script src="<?php echo $baseUrl ?>app/public/vendor/glightbox/js/glightbox.min.js"></script>
 
 <script src="<?php echo $baseUrl ?>app/public/js/main.js"></script>
@@ -100,7 +100,6 @@
 <script src="<?php echo $baseUrl ?>app/public/plugins/colorpicker/js/bootstrap-colorpicker.min.js"></script>
 <script src="<?php echo $baseUrl ?>app/public/plugins/chart.js/Chart.min.js"></script>
 <script src="<?php echo $baseUrl ?>app/public/plugins/notiflix/notiflix-aio-2.7.0.min.js"></script>
-<script src="<?php echo $baseUrl ?>app/public/plugins/notiflix/notiflix-2.7.0.min.js"></script>
 <script src="<?php echo $baseUrl ?>app/public/plugins/icons/js/bootstrap-iconpicker.bundle.min.js"></script>
 <script src="<?php echo $baseUrl ?>app/public/plugins/cropper/cropper.min.js"></script>
 <script src="<?php echo $baseUrl ?>app/public/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
@@ -108,7 +107,7 @@
 <script src="<?php echo $baseUrl ?>app/public/plugins/tour/enjoyhint.js"></script>
 <script src="<?php echo $baseUrl ?>app/public/plugins/summernote/summernote-bs4.js"></script>
 <script src="<?php echo $baseUrl ?>app/public/plugins/summernote/lang/summernote-pt-BR.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
 
 <script>
     // Remove o preloader após a página carregar

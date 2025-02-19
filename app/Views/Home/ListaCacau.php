@@ -26,23 +26,12 @@
 
 <div class="content-wrapper pb-3">
 
-    <!-- Cabeçalho -->
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mt-3">
-                <div class="col-md-12 text-center">
-                    <h1 class="m-0 p-3 rounded" style="background-color: <?php echo $corSecundaria.'20' ?>;">Listas de cacaus finos</h1>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Lista de Produtos -->
-    <section class="content">
+    <section class="content p-3">
         <div class="container-fluid">
             <div class="row mt-3 mb-3">
                 <?php foreach ($list as $values) { ?>
-                    <div class="col-lg-4">
+                    <div class="col-lg-3">
                         <div class="card">
                             <img src="<?php echo $baseUrl ?>/app/public/img/Cacau.png" class="card-img-top" alt="<?php echo $values['cac_titulo']; ?>">
                             <div class="card-body">
