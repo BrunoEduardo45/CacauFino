@@ -10,9 +10,11 @@
 
 ?>
 
+<link rel="stylesheet" href="<?php echo $baseUrl ?>app/public/css/select-style.css">
+
 <div class="content-wrapper">
     
-    <section class="content pt-4">
+    <div class="content pt-4 pb-4">
         <form id="form" method="post">
             <div class="container-fluid">
                 <div class="row">
@@ -32,7 +34,7 @@
                                             <input type="text" class="form-control" id="not_titulo" name="not_titulo" value="<?php echo $not_titulo ?>" required>
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-12 mt-3">
                                         <div id="step01" class="form-group" style="height: 350px">
                                             <label class="form-label" for="not_descricao">Descrição</label>
                                             <div id="editor"><?php echo $not_descricao ?></div>
@@ -43,7 +45,8 @@
                                     <div id="step04" class="col-lg-4">
                                         <div class="form-group">
                                             <label>Categoria</label>
-                                            <select class="form-control" id="not_categoria" name="not_categoria">
+                                            <select class="form-control" id="not_categoria" name="not_categoria" required>
+                                                <option value="">Selecione</option>
                                                 <?php
                                                 $stmt = $pdo->prepare("SELECT * FROM categoria WHERE cat_status = 1");
                                                 $stmt->execute();
@@ -68,6 +71,7 @@
                                         <div class="form-group">
                                             <label for="not_tipo">Tipo</label>
                                             <select class="form-control" id="not_tipo" name="not_tipo" required>
+                                                <option value="">Selecione</option>
                                                 <option value="1" <?php echo ($not_tipo == 1) ? "selected" : ""; ?>>Noticia</option>
                                                 <option value="2" <?php echo ($not_tipo == 2) ? "selected" : ""; ?>>Evento</option>
                                                 <option value="3" <?php echo ($not_tipo == 3) ? "selected" : ""; ?>>Blog</option>
@@ -75,20 +79,20 @@
                                         </div>
                                     </div>
                                 </div>
-                                <br>
-
                             </div>
-                            <div class="card-footer">
-                                <?php if ($id) { ?>
-                                    <input type="hidden" id="Acao" name="Acao" value="atualizar">
-                                <?php } else { ?>
-                                    <input type="hidden" id="Acao" name="Acao" value="salvar">
-                                <?php } ?>
-                                <a href="<?php echo $baseUrl ?>lista-noticias" class="btn btn-warning"><i class="fas fa-arrow-left mr-2"></i> Voltar</a>
-                                <button type="submit" class="btn btn-primary ml-2"><i class="fas fa-save mr-2"></i> Salvar</button>
-                                <?php if ($id) { ?>
-                                    <button type="button" id="deleta" class="btn btn-danger ml-2" data-acao="deletar"><i class="fas fa-trash mr-2"></i> Deletar</button>
-                                <?php } ?>
+                            <div class="card-footer d-flex justify-content-end">
+                                <div>
+                                    <?php if ($id) { ?>
+                                        <input type="hidden" id="Acao" name="Acao" value="atualizar">
+                                    <?php } else { ?>
+                                        <input type="hidden" id="Acao" name="Acao" value="salvar">
+                                    <?php } ?>
+                                    <a href="<?php echo $baseUrl ?>lista-noticias" class="btn btn-warning"><i class="fas fa-arrow-left mr-2"></i> Voltar</a>
+                                    <button type="submit" class="btn btn-primary ml-2"><i class="fas fa-save mr-2"></i> Salvar</button>
+                                    <?php if ($id) { ?>
+                                        <button type="button" id="deleta" class="btn btn-danger ml-2" data-acao="deletar"><i class="fas fa-trash mr-2"></i> Deletar</button>
+                                    <?php } ?>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -96,21 +100,23 @@
                         <div class="card card-outline card-primary">
                             <div class="card-body">
                                 <label class="form-label" for="cadastro">Imagem</label>
+                                <br>
                                 <input type="hidden" id="not_nome_imagem" value="<?php echo $not_nome_imagem ?>">
-                                <img src="" id="imagemPreview" class="img-fluid w-100 img-rounded mb-2 <?php echo $id == 0 ? 'd-none' : '' ?>">
-                                <img src="<?php echo $baseUrl.$not_url_imagem ?>" id="imagemBanco" class="img-fluid w-100 img-rounded mb-2 <?php echo $id == 0 ? 'd-none' : '' ?>">
-
-                                <label id="step07" class="btn btn-primary btn-block">Upload de Imagem
+                                <div class="image-preview-container mb-3">
+                                    <img src="" id="imagemPreview" class="img-fluid img-thumbnail <?php echo $id == 0 ? 'd-none' : '' ?>">
+                                    <img src="<?php echo $baseUrl.$not_url_imagem ?>" id="imagemBanco" class="img-fluid img-thumbnail <?php echo $id == 0 ? 'd-none' : '' ?>">
+                                </div>
+                                <label id="step07" class="btn btn-primary btn-block">
+                                    <i class="fas fa-upload mr-2"></i> Upload de Imagem
                                     <input type="file" id="imagem" name="image" class="image" hidden>
                                 </label>
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </form>
-    </section>
+    </div>
 
 </div>
 

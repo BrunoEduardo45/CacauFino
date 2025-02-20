@@ -73,17 +73,10 @@ $currentPage = basename($_SERVER['REQUEST_URI'], ".php");
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
 
-
   <!-- Main CSS File -->
   <link href="app/public/css/main.css" rel="stylesheet">
 
   <style>
-    @media print {
-      @page {
-        size: landscape;
-      }
-    }
-
     body {
       background-color: #d0d4a44d;
     }
@@ -292,6 +285,20 @@ $currentPage = basename($_SERVER['REQUEST_URI'], ".php");
       object-fit: cover;
       display: block;
       filter: brightness(0.5);
+    }
+
+    .image-preview-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px dashed #ddd;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    .img-thumbnail {
+        max-height: 300px;
+        object-fit: cover;
     }
   </style>
 

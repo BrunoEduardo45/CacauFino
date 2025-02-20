@@ -39,8 +39,8 @@
                                                     <td><?php echo $values['usu_nome'] ?></td>
                                                     <td>
                                                         <?= ($values['not_status'] == 1) ? 
-                                                            '<span class="badge badge-pill badge-success">Ativo</span>' : 
-                                                            '<span class="badge badge-pill badge-danger">Inativo</span>'; ?>
+                                                            '<span class="badge badge-success">Ativo</span>' : 
+                                                            '<span class="badge badge-danger">Inativo</span>'; ?>
                                                     </td>
                                                     <td>
                                                         <a href="<?php echo $baseUrl ?>atualizar-noticias/<?php echo $values['not_id'] ?>" 
@@ -68,3 +68,5 @@
     </section>
 
 </div>
+
+<link rel="stylesheet" href="<?php echo $baseUrl ?>app/public/css/select-style.css">

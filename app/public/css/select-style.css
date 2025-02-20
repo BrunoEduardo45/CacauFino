@@ -1,0 +1,16 @@
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: url('data:image/svg+xml;utf8,<svg fill="%23333" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 10px center;
+    background-color: var(--surface-color);
+    padding-right: 30px;
+    border: 1px solid color-mix(in srgb, var(--default-color), transparent 70%);
+    border-radius: 4px;
+  }
+  
+  select:focus {
+    border-color: var(--accent-color);
+    outline: none;
+  }
+  

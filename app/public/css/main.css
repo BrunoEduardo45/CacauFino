@@ -1721,7 +1721,7 @@ section,
 }
 
 .blog-details .meta-bottom a {
-  color: color-mix(in srgb, var(--default-color), transparent 40%);
+  color: color-mix(in srgb, var (--default-color), transparent 40%);
   transition: 0.3s;
 }
 
